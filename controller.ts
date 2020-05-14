@@ -28,31 +28,30 @@ const getBook = ({ params, response }: { params: { isbn: string }; response: any
     response.status = 200
     response.body = books[0]
   } else {
-    response.status = 400
+    response.status = 404
     response.body = { message: `Book not found.` }
   }   
 }
 
 const addBook = async ({ request, response }: { request: any; response: any }) => {
   const body = await request.body()
-  const book: IBook = body.value
+  const book: IBook = body.value  
   books.push(book)
   response.body = { message: 'OK' }
   response.status = 200
 }
 
 const updateBook = async ({ params, request, response }: { params: { isbn: string }; request: any; response: any }) => {
-  const book: IBook | undefined = searchBookByIsbn(params.isbn)
+  let book: IBook | undefined = searchBookByIsbn(params.isbn)
   if (book) {
     const body = await request.body()
-    const { author, title }: { author: string; title: string } = body.value
-    book.author = author
-    book.title = title
+    const updateInfos: { author?: string; title?: string } = body.value
+    book = { ...book, ...updateInfos}
     books = [...books.filter(book => book.isbn !== params.isbn), book]
     response.status = 200
     response.body = { message: 'OK' }
   } else {
-    response.status = 400
+    response.status = 404
     response.body = { message: `Book not found` }
   }  
 }
