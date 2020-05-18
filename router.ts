@@ -1,4 +1,4 @@
-import { Router }from 'https://deno.land/x/oak/mod.ts'
+import { Router } from 'https://deno.land/x/oak/mod.ts'
 import { getBooks, getBook, addBook, updateBook, deleteBook } from './controller.ts'
 
 const router = new Router()
