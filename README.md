@@ -2,7 +2,7 @@
 A simple rest API made with Deno
 
 ## run the app
-`deno run app.ts`
+`deno run --allow-env --allow-net app.ts`
 
 ## routes
 
